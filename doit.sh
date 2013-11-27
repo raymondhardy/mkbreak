@@ -27,7 +27,7 @@ ${MAKE} SDK=${SDK}
 
 # First to get root in ADB shell
 adb push rootme.sh /data/local/tmp/rootme.sh
-adb shell "adb shell "chmod 06744 /data/local/tmp/rootme.sh"" 
+adb shell "chmod 06744 /data/local/tmp/rootme.sh"
 adb install evil-Settings.apk
 adb shell am start -D -a android.intent.action.MAIN -n a.b.c.d/android.app.Activity
 sleep 1
