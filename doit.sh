@@ -60,7 +60,7 @@ system_dev=$(adb shell mount | grep " /system " | cut -d ' ' -f 1)
 adb shell mount -o remount,rw ${system_dev} /system
 adb push su /system/xbin
 adb shell chmod 6755 /system/xbin/su
-adb shell install Supersu.apk
+adb shell install Superuser.apk
 adb shell rm /data/local.prop
 
 adb_reboot
