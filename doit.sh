@@ -62,6 +62,7 @@ adb push su /system/xbin
 adb shell chmod 6755 /system/xbin/su
 adb install Superuser.apk
 adb shell rm /data/local.prop
+adb uninstall a.b.c.d
 
 adb_reboot
 
